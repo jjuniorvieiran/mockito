@@ -68,7 +68,7 @@ class AccountOpeningServiceTest {
     public void shouldThrowIfReferenceIdsManagerThrows() throws IOException {
         when(backgroundCheckService.confirm(FIRST_NAME, LAST_NAME, TAX_ID, DOB))
                 .thenReturn(new BackgroundCheckResults("something_not_unacceptable", 100));
-        when(referenceIdsManager.obtainId(eq(FIRST_NAME), anyString(), eq(LAST_NAME), eq(TAX_ID), eq(DOB)))
+        when(referenceIdsManager.obtainId(eq(FIRST_NAME), anyString(), eq(LAST_NAME), eq(TAX_ID), eq(DOB))) // using arguments matchers
                 .thenThrow(new RuntimeException());
         assertThrows(RuntimeException.class, () -> underTest.openAccount(FIRST_NAME, LAST_NAME, TAX_ID, DOB));
     }
@@ -78,7 +78,7 @@ class AccountOpeningServiceTest {
         final BackgroundCheckResults backgroundCheckResults = new BackgroundCheckResults("something_not_unacceptable", 100);
         when(backgroundCheckService.confirm(FIRST_NAME, LAST_NAME, TAX_ID, DOB))
                 .thenReturn(backgroundCheckResults);
-        when(referenceIdsManager.obtainId(eq(FIRST_NAME), anyString(), eq(LAST_NAME), eq(TAX_ID), eq(DOB)))
+        when(referenceIdsManager.obtainId(eq(FIRST_NAME), anyString(), eq(LAST_NAME), eq(TAX_ID), eq(DOB))) // using arguments matchers
                 .thenReturn("someID");
         when(accountRepository.save("someID", FIRST_NAME, LAST_NAME, TAX_ID, DOB, backgroundCheckResults))
                 .thenThrow(new RuntimeException());
@@ -91,7 +91,7 @@ class AccountOpeningServiceTest {
         when(backgroundCheckService.confirm(FIRST_NAME, LAST_NAME, TAX_ID, DOB))
                 .thenReturn(backgroundCheckResults);
         final String accountId = "someID";
-        when(referenceIdsManager.obtainId(eq(FIRST_NAME), anyString(), eq(LAST_NAME), eq(TAX_ID), eq(DOB)))
+        when(referenceIdsManager.obtainId(eq(FIRST_NAME), anyString(), eq(LAST_NAME), eq(TAX_ID), eq(DOB)))// using arguments matchers
                 .thenReturn(accountId);
         when(accountRepository.save(accountId, FIRST_NAME, LAST_NAME, TAX_ID, DOB, backgroundCheckResults))
                 .thenReturn(true);
