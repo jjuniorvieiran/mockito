@@ -81,7 +81,7 @@ class AccountOpeningServiceTest {
         when(referenceIdsManager.obtainId(eq(FIRST_NAME), anyString(), eq(LAST_NAME), eq(TAX_ID), eq(DOB))) // using arguments matchers
                 .thenReturn("someID");
         when(accountRepository.save("someID", FIRST_NAME, LAST_NAME, TAX_ID, DOB, backgroundCheckResults))
-                .thenThrow(new RuntimeException());
+                .thenThrow(new RuntimeException());//throw an exception when call repository.save
         assertThrows(RuntimeException.class, () -> underTest.openAccount(FIRST_NAME, LAST_NAME, TAX_ID, DOB));
     }
 
