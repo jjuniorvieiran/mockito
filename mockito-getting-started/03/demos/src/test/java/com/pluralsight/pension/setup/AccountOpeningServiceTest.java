@@ -66,6 +66,7 @@ class AccountOpeningServiceTest {
 
     @Test
     public void shouldThrowIfReferenceIdsManagerThrows() throws IOException {
+
         when(backgroundCheckService.confirm(FIRST_NAME, LAST_NAME, TAX_ID, DOB))
                 .thenReturn(new BackgroundCheckResults("something_not_unacceptable", 100));
         when(referenceIdsManager.obtainId(eq(FIRST_NAME), anyString(), eq(LAST_NAME), eq(TAX_ID), eq(DOB))) // using arguments matchers
@@ -95,7 +96,7 @@ class AccountOpeningServiceTest {
                 .thenReturn(accountId);
         when(accountRepository.save(accountId, FIRST_NAME, LAST_NAME, TAX_ID, DOB, backgroundCheckResults))
                 .thenReturn(true);
-        doThrow(new RuntimeException()).when(eventPublisher).notify(accountId);
+        doThrow(new RuntimeException()).when(eventPublisher).notify(accountId); // mock a throw exception when notify method is void
         assertThrows(RuntimeException.class, () -> underTest.openAccount(FIRST_NAME, LAST_NAME, TAX_ID, DOB));
     }
 }
