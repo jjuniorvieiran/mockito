@@ -62,7 +62,7 @@ class AccountOpeningServiceTest {
                 eq(TAX_ID),
                 eq(DOB),
                 backgroundCheckResultsArgumentCaptor.capture());//passing argumentCaptor to make sure BackgroundCheckResults was passed as parameter to  save
-        verify(eventPublisher).notify(anyString());
+        verify(eventPublisher).notify(anyString()); //argument matchers to verify events
         System.out.println(backgroundCheckResultsArgumentCaptor.getValue().getRiskProfile() + " " +
                 backgroundCheckResultsArgumentCaptor.getValue().getUpperAccountLimit());
         assertEquals(okBackgroundCheckResults.getRiskProfile(),
