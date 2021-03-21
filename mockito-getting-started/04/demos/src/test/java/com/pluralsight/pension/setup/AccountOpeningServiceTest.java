@@ -65,8 +65,8 @@ class AccountOpeningServiceTest {
         verify(eventPublisher).notify(anyString()); //argument matchers to verify events
         System.out.println(backgroundCheckResultsArgumentCaptor.getValue().getRiskProfile() + " " +
                 backgroundCheckResultsArgumentCaptor.getValue().getUpperAccountLimit());
-        assertEquals(okBackgroundCheckResults.getRiskProfile(),
-                backgroundCheckResultsArgumentCaptor.getValue().getRiskProfile());
+        assertEquals(okBackgroundCheckResults.getRiskProfile(), // during the test same value mocked
+                backgroundCheckResultsArgumentCaptor.getValue().getRiskProfile()); // was passed as parameter to save method
         assertEquals(okBackgroundCheckResults.getUpperAccountLimit(),
                 backgroundCheckResultsArgumentCaptor.getValue().getUpperAccountLimit());
     }
