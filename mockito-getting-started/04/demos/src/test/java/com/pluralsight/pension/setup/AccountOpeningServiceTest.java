@@ -56,11 +56,11 @@ class AccountOpeningServiceTest {
         ArgumentCaptor<BackgroundCheckResults> backgroundCheckResultsArgumentCaptor =
                 ArgumentCaptor.forClass(BackgroundCheckResults.class);
         verify(accountRepository).save(
-                eq(ACCOUNT_ID),
-                eq(FIRST_NAME),
-                eq(LAST_NAME),
-                eq(TAX_ID),
-                eq(DOB),
+                eq(ACCOUNT_ID), //use eq() argument matcher when has ArgumentCaptor
+                eq(FIRST_NAME),//use eq() argument matcher when has ArgumentCaptor
+                eq(LAST_NAME),//use eq() argument matcher when has ArgumentCaptor
+                eq(TAX_ID),//use eq() argument matcher when has ArgumentCaptor
+                eq(DOB),//use eq() argument matcher when has ArgumentCaptor
                 backgroundCheckResultsArgumentCaptor.capture());//passing argumentCaptor to make sure BackgroundCheckResults was passed as parameter to  save
         verify(eventPublisher).notify(anyString()); //argument matchers to verify events
         System.out.println(backgroundCheckResultsArgumentCaptor.getValue().getRiskProfile() + " " +
